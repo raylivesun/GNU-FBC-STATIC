@@ -1,0 +1,15 @@
+image: ubuntu/22.04
+packages:
+  - libncurses5-dev
+sources:
+  - https://git.sr.ht/~jlaasonen/fbtesting
+tasks:
+  - setup: |
+      wget http://downloads.sourceforge.net/fbc/FreeBASIC-1.10.0-ubuntu-22.04-x86_64.tar.xz
+      tar xf FreeBASIC-1.10.0-ubuntu-22.04-x86_64.tar.xz
+      cd FreeBASIC-1.10.0-ubuntu-22.04-x86_64
+      sudo ./install.sh -i
+  - test: |
+      cd fbtesting
+      fbc  -e -w all -w pedantic -w error test.bas fbtesting.bas
+      ./test
